@@ -1,0 +1,7 @@
+{
+  "name": "Q Tracker",
+  "description": "Minimalist virtual laboratory and scientific research tracker prioritizing task visualization, real-time data management, and streamlined lab workflows.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+

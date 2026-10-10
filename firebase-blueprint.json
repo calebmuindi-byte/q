@@ -1,0 +1,82 @@
+{
+  "entities": {
+    "Project": {
+      "title": "Project",
+      "description": "Scientific research project containing experimental workflows and datasets",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "category": { "type": "string" },
+        "lead": { "type": "string" },
+        "status": { "type": "string", "enum": ["active", "paused", "archived", "completed"] },
+        "collaborators": { "type": "array" },
+        "ownerId": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["title", "ownerId", "status"]
+    },
+    "Task": {
+      "title": "Task",
+      "description": "Laboratory protocol task or milestone within a project",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "status": { "type": "string", "enum": ["backlog", "in_progress", "review", "completed"] },
+        "priority": { "type": "string", "enum": ["low", "medium", "high", "urgent"] },
+        "assignee": { "type": "string" },
+        "dueDate": { "type": "string" },
+        "protocolStep": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["title", "status", "priority"]
+    },
+    "Assay": {
+      "title": "Assay",
+      "description": "Experimental assay or quantitative measurement dataset",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "type": { "type": "string", "enum": ["kinetics", "dose_response", "expression_heatmap", "spectrometry", "plate_reader"] },
+        "metrics": { "type": "object" },
+        "dataPoints": { "type": "array" },
+        "notes": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["name", "type"]
+    },
+    "DashboardWidget": {
+      "title": "DashboardWidget",
+      "description": "Customizable dashboard visualizer widget for a project",
+      "type": "object",
+      "properties": {
+        "widgetType": { "type": "string" },
+        "title": { "type": "string" },
+        "order": { "type": "number" },
+        "visible": { "type": "boolean" },
+        "settings": { "type": "object" }
+      },
+      "required": ["widgetType", "title"]
+    }
+  },
+  "firestore": {
+    "/projects/{projectId}": {
+      "schema": { "$ref": "Project" },
+      "description": "Collection of scientific projects"
+    },
+    "/projects/{projectId}/tasks/{taskId}": {
+      "schema": { "$ref": "Task" },
+      "description": "Tasks associated with a project"
+    },
+    "/projects/{projectId}/assays/{assayId}": {
+      "schema": { "$ref": "Assay" },
+      "description": "Assay measurements in a project"
+    },
+    "/projects/{projectId}/widgets/{widgetId}": {
+      "schema": { "$ref": "DashboardWidget" },
+      "description": "Configurable widgets for a project dashboard"
+    }
+  }
+}
